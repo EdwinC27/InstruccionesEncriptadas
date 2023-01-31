@@ -1,14 +1,15 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class main {
+    static File file;
+    static Scanner scanner = new Scanner(System.in);
+    static String resultado1;
+    static String resultado2;
 
     public static void main(String[] args) {
         try {
-            // trae el archivo
-            File file = new File("file.txt");
+            abrirArchivo();
 
             // obtener datos
             Scanner input = new Scanner(file);
@@ -22,18 +23,57 @@ public class main {
             // condiciones esperadas
             if((n >= 3 && n <= 5000) && (m1 >= 2 && m1 <= 50) && (m2 >= 2 && m2 <= 50)) {
                 // general el mensage con la instruccion
-                String resultado1 = validarCaracteres(instruccion1, mensaje);
-                String resultado2 = validarCaracteres(instruccion2, mensaje);
+                resultado1 = validarCaracteres(instruccion1, mensaje);
+                resultado2 = validarCaracteres(instruccion2, mensaje);
 
-                crearArchivo(resultado1, resultado2);
-
-                System.out.println("Se creo el archivo");
+                opcGuardarArchivo();
             }
             else {
                 System.out.println("Formato incorrecto");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No se pudo encontrar el archivo.");
+            System.out.println("Ocurrio un error con el archivo.");
+        }
+    }
+
+    private static void abrirArchivo() {
+        // trae el archivo
+        System.out.println("Digite la ruta del archivo a abrir: ");
+        String nombre = scanner.nextLine();
+
+        file = new File(nombre);
+    }
+
+    private static void opcGuardarArchivo() {
+        System.out.println("\nYa se genero la respuesta\n1- Guardar archivo por default\n2- Modificar ruta y nombre\nQue decea: ");
+        Integer opcGuardar = scanner.nextInt();
+
+        if(opcGuardar == 1) { // por defecto
+            try {
+                crearArchivo("respuesta.txt");
+            } catch (Exception e) {
+                System.out.println("Error al crear el archivo");
+            }
+        }
+        else if(opcGuardar == 2) { // eligir ruta y nombre
+            try {
+                scanner.nextLine(); // limpiar bufer
+
+                System.out.println("Ingrese la ruta: ");
+                String ruta = scanner.nextLine();
+
+                System.out.println("Ingrese el nombre: ");
+                String nombre = scanner.nextLine();
+
+                file = new File (ruta,nombre);
+
+                // A partir del objeto File creamos el fichero físicamente
+                if (file.createNewFile()) crearArchivo(String.valueOf(file));
+                else System.out.println("No ha podido ser creado el fichero");
+
+            } catch (Exception e) {
+                System.out.println("Error al crear el archivo");
+            }
         }
     }
 
@@ -58,10 +98,15 @@ public class main {
         return "NO";
     }
 
-    public static void crearArchivo(String resultado1, String resultado2) throws FileNotFoundException {
-        PrintWriter output = new PrintWriter(new File("respuesta.txt"));
-        output.println(resultado1);
-        output.println(resultado2);
-        output.close();
+    private static void crearArchivo(String file) throws FileNotFoundException {
+        try(FileWriter fw = new FileWriter(file, true))
+        {
+            fw.write(resultado1);
+            fw.write("\n");
+            fw.write(resultado2);
+            System.out.println("El fichero se ha creado correctamente");
+        } catch (Exception e) {
+            System.out.println("Error al agregar los datos");;
+        }
     }
 }
