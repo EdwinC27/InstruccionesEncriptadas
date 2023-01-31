@@ -25,7 +25,9 @@ public class main {
                 String resultado1 = validarCaracteres(instruccion1, mensaje);
                 String resultado2 = validarCaracteres(instruccion2, mensaje);
 
-                System.out.println(resultado1 + "\n" + resultado2);
+                crearArchivo(resultado1, resultado2);
+
+                System.out.println("Se creo el archivo");
             }
             else {
                 System.out.println("Formato incorrecto");
@@ -54,5 +56,12 @@ public class main {
             return "SI";
         }
         return "NO";
+    }
+
+    public static void crearArchivo(String resultado1, String resultado2) throws FileNotFoundException {
+        PrintWriter output = new PrintWriter(new File("respuesta.txt"));
+        output.println(resultado1);
+        output.println(resultado2);
+        output.close();
     }
 }
