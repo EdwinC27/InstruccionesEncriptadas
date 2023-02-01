@@ -37,9 +37,16 @@ public class main {
     }
 
     private static void abrirArchivo() {
-        // trae el archivo
-        System.out.println("Digite la ruta del archivo a abrir: ");
-        String nombre = scanner.nextLine();
+        String nombre = "file.txt";
+
+        System.out.println("1- Leer el archivo predeterminado\n2- Abrir otro archivo\nQue decea: ");
+        int res = scanner.nextInt();
+
+        if(res == 2) {
+            scanner.nextLine(); // limpiar bufer
+            System.out.println("Digite la ruta del archivo a abrir: ");
+            nombre = scanner.nextLine();
+        }
 
         file = new File(nombre);
     }
@@ -48,15 +55,11 @@ public class main {
         System.out.println("\nYa se genero la respuesta\n1- Guardar archivo por default\n2- Modificar ruta y nombre\nQue decea: ");
         Integer opcGuardar = scanner.nextInt();
 
-        if(opcGuardar == 1) { // por defecto
-            try {
-                crearArchivo("respuesta.txt");
-            } catch (Exception e) {
-                System.out.println("Error al crear el archivo");
-            }
-        }
-        else if(opcGuardar == 2) { // eligir ruta y nombre
-            try {
+        try {
+            // por defecto
+            if(opcGuardar == 1) crearArchivo("respuesta.txt");
+
+            else if(opcGuardar == 2) { // elegir ruta y nombre
                 scanner.nextLine(); // limpiar bufer
 
                 System.out.println("Ingrese la ruta: ");
@@ -65,15 +68,20 @@ public class main {
                 System.out.println("Ingrese el nombre: ");
                 String nombre = scanner.nextLine();
 
+                // verificar si termina con .txt
+                int len = nombre.length();
+                String lastFour = nombre.substring(len-4, len);
+
+                if(!lastFour.equals(".txt")) nombre += ".txt";
+
                 file = new File (ruta,nombre);
 
                 // A partir del objeto File creamos el fichero físicamente
                 if (file.createNewFile()) crearArchivo(String.valueOf(file));
                 else System.out.println("No ha podido ser creado el fichero");
-
-            } catch (Exception e) {
-                System.out.println("Error al crear el archivo");
             }
+        } catch (Exception e) {
+            System.out.println("Error al crear el archivo");
         }
     }
 
@@ -98,7 +106,7 @@ public class main {
         return "NO";
     }
 
-    private static void crearArchivo(String file) throws FileNotFoundException {
+    private static void crearArchivo(String file) {
         try(FileWriter fw = new FileWriter(file, true))
         {
             fw.write(resultado1);
