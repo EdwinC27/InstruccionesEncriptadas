@@ -6,33 +6,52 @@ public class main {
     static Scanner scanner = new Scanner(System.in);
     static String resultado1;
     static String resultado2;
+    static Integer m1;
+    static Integer m2;
+    static Integer n;
+    static String instruccion1;
+    static String instruccion2;
+    static String mensaje;
 
     public static void main(String[] args) {
         try {
             abrirArchivo();
+            obtenerDatos();
 
-            // obtener datos
-            Scanner input = new Scanner(file);
-            Integer m1 = input.nextInt();
-            Integer m2 = input.nextInt();
-            Integer n = input.nextInt();
-            String instruccion1 = input.next();
-            String instruccion2 = input.next();
-            String mensaje = input.next();
-
-            // condiciones esperadas
-            if((n >= 3 && n <= 5000) && (m1 >= 2 && m1 <= 50) && (m2 >= 2 && m2 <= 50)) {
-                // general el mensage con la instruccion
-                resultado1 = validarCaracteres(instruccion1, mensaje);
-                resultado2 = validarCaracteres(instruccion2, mensaje);
-
-                opcGuardarArchivo();
-            }
-            else {
-                System.out.println("Formato incorrecto");
-            }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             System.out.println("Ocurrio un error con el archivo.");
+        }
+    }
+
+    private static void obtenerDatos() {
+        Scanner input = null;
+        try {
+            input = new Scanner(file);
+
+            m1 = input.nextInt();
+            m2 = input.nextInt();
+            n = input.nextInt();
+            instruccion1 = input.next();
+            instruccion2 = input.next();
+            mensaje = input.next();
+
+            condicionesEsperadas();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error al leer los datos");
+        }
+    }
+
+    private static void condicionesEsperadas() {
+        // condiciones definidas
+        if((n >= 3 && n <= 5000) && (m1 >= 2 && m1 <= 50) && (m2 >= 2 && m2 <= 50)) {
+            // general el mensage con la instruccion
+            resultado1 = validarCaracteres(instruccion1, mensaje);
+            resultado2 = validarCaracteres(instruccion2, mensaje);
+
+            opcGuardarArchivo();
+        }
+        else {
+            System.out.println("Formato incorrecto");
         }
     }
 
