@@ -1,0 +1,51 @@
+public class Condiciones {
+
+    public  void condicionesEsperadas(String[] args) {
+        // condiciones definidas
+        if ((Atributos.n >= 3 && Atributos.n <= 5000) && (Atributos.m1 >= 2 && Atributos.m1 <= 50) && (Atributos.m2 >= 2 && Atributos.m2 <= 50)) {
+            if (hasDuplicateChar(Atributos.instruccion1) && hasDuplicateChar(Atributos.instruccion2)) {
+                if (Atributos.m1 == Atributos.instruccion1.length() && Atributos.m2 == Atributos.instruccion2.length() && Atributos.n == Atributos.mensaje.length()) {
+                    // general el mensage con la instruccion
+                    Atributos.resultado1 = validarCaracteres(Atributos.instruccion1, Atributos.mensaje);
+                    Atributos.resultado2 = validarCaracteres(Atributos.instruccion2, Atributos.mensaje);
+
+                    OpcionesGuardado opcDeguardarArchivo = new OpcionesGuardado();
+                    opcDeguardarArchivo.opcGuardarArchivo(args);
+                }
+
+                if (Atributos.m1 != Atributos.instruccion1.length()) System.out.println("Instruccion 1 no tiene el tamaño esperado");
+
+                if (Atributos.m2 != Atributos.instruccion2.length()) System.out.println("Instruccion 2 no tiene el tamaño esperado");
+
+                if (Atributos.n != Atributos.mensaje.length()) System.out.println("Mensaje Encriptado no tiene el tamaño esperado");
+
+            } else System.out.println("Instrucciones con caracteres repetidos");
+
+        } else System.out.println("Formato incorrecto en el archivo, por favor verificar archivo");
+
+    }
+
+    private static boolean hasDuplicateChar(String input) {
+        for (int interacionInput = 0; interacionInput < input.length()-1; interacionInput++) {
+            if (input.charAt(interacionInput) == input.charAt(interacionInput + 1)) return false;
+        }
+        return true;
+    }
+
+    private static String validarCaracteres(String instruccion, String mensaje) {
+        int recorerMensaje = 0;
+        int recorrrInstruccion = 0;
+
+        while (recorerMensaje < mensaje.length() && recorrrInstruccion < instruccion.length()) {
+            if(mensaje.charAt(recorerMensaje) == instruccion.charAt(recorrrInstruccion)) {
+                recorrrInstruccion++;
+            }
+            recorerMensaje++;
+        }
+
+        if (recorrrInstruccion == instruccion.length()) {
+            return "SI";
+        }
+        return "NO";
+    }
+}
