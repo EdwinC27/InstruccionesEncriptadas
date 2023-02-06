@@ -9,18 +9,17 @@ public class AbrirArchivo {
 
                 try (BufferedReader reader = new BufferedReader(new FileReader(Atributos.inputFileName))) {
                     Atributos.file = new File(Atributos.inputFileName);
+
+                    if (Atributos.file.exists()) {
+                        // se creo
+                        LeerArchivo leerArchivo = new LeerArchivo();
+                        leerArchivo.obtenerDatos(args);
+                    } else {
+                        System.out.println("Archivo no encontrado");
+                    }
                 } catch (IOException e) {
                     System.out.println("Error al leer el archivo");
                 }
-
-                if (Atributos.file.exists()) {
-                    // se creo
-                    LeerArchivo leerArchivo = new LeerArchivo();
-                    leerArchivo.obtenerDatos(args);
-                } else {
-                    System.out.println("Archivo no encontrado");
-                }
-
             } else if (args.length == 0) { // mando a llamar por consola del IDE
 
                 String nombre = "file.txt";

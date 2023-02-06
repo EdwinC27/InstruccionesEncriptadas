@@ -5,12 +5,18 @@ public class Condiciones {
         if ((Atributos.n >= 3 && Atributos.n <= 5000) && (Atributos.m1 >= 2 && Atributos.m1 <= 50) && (Atributos.m2 >= 2 && Atributos.m2 <= 50)) {
             if (hasDuplicateChar(Atributos.instruccion1) && hasDuplicateChar(Atributos.instruccion2)) {
                 if (Atributos.m1 == Atributos.instruccion1.length() && Atributos.m2 == Atributos.instruccion2.length() && Atributos.n == Atributos.mensaje.length()) {
-                    // general el mensage con la instruccion
-                    Atributos.resultado1 = validarCaracteres(Atributos.instruccion1, Atributos.mensaje);
-                    Atributos.resultado2 = validarCaracteres(Atributos.instruccion2, Atributos.mensaje);
+                    if(validarCaracteresEspeciales(Atributos.instruccion1) && validarCaracteresEspeciales(Atributos.instruccion2) && validarCaracteresEspeciales(Atributos.mensaje)) {
+                        // general el mensage con la instruccion
+                        Atributos.resultado1 = validarCaracteres(Atributos.instruccion1, Atributos.mensaje);
+                        Atributos.resultado2 = validarCaracteres(Atributos.instruccion2, Atributos.mensaje);
 
-                    OpcionesGuardado opcDeguardarArchivo = new OpcionesGuardado();
-                    opcDeguardarArchivo.opcGuardarArchivo(args);
+                        OpcionesGuardado opcDeguardarArchivo = new OpcionesGuardado();
+                        opcDeguardarArchivo.opcGuardarArchivo(args);
+                    }
+
+                    if(!validarCaracteresEspeciales(Atributos.instruccion1)) System.out.println("Instruccion 1 contiene caracteres especiales");
+                    if(!validarCaracteresEspeciales(Atributos.instruccion2)) System.out.println("Instruccion 2 contiene caracteres especiales");
+                    if(!validarCaracteresEspeciales(Atributos.mensaje)) System.out.println("Mensaje contiene caracteres especiales");
                 }
 
                 if (Atributos.m1 != Atributos.instruccion1.length()) System.out.println("Instruccion 1 no tiene el tamaño esperado");
@@ -47,5 +53,16 @@ public class Condiciones {
             return "SI";
         }
         return "NO";
+    }
+
+    private static boolean validarCaracteresEspeciales(String mensaje) {
+        String regex = "[^a-zA-Z0-9]";
+        String validMessage = mensaje.replaceAll(regex, "");
+
+        if (mensaje.equals(validMessage)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
