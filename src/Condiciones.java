@@ -1,7 +1,7 @@
 import com.sun.source.tree.IfTree;
 
 public class Condiciones {
-    public  void condicionesEsperadas(String[] args) {
+    public static void condicionesEsperadas(String[] args) {
         // condiciones definidas
         if ((Atributos.n >= 3 && Atributos.n <= 5000) && (Atributos.m1 >= 2 && Atributos.m1 <= 50) && (Atributos.m2 >= 2 && Atributos.m2 <= 50)) {
             if (hasDuplicateChar(Atributos.instruccion1) && hasDuplicateChar(Atributos.instruccion2)) {
@@ -11,12 +11,11 @@ public class Condiciones {
                         Atributos.resultado1 = validarCaracteres(Atributos.instruccion1, Atributos.mensaje);
                         Atributos.resultado2 = validarCaracteres(Atributos.instruccion2, Atributos.mensaje);
 
-                        if(Atributos.resultado1.equals(Atributos.resultado2)) { // chechar si hay mas de 1 Si
-                            System.out.println("Hay 2 instrucciones en el mismo mensaje");
+                        if(!Atributos.resultado1.equals(Atributos.resultado2)) { // chechar si hay mas de 1 Si
+                            OpcionesGuardado.opcGuardarArchivo(args);
                         }
                         else {
-                            OpcionesGuardado opcDeguardarArchivo = new OpcionesGuardado();
-                            opcDeguardarArchivo.opcGuardarArchivo(args);
+                            System.out.println("Hay 2 instrucciones en el mismo mensaje");
                         }
                     }
 

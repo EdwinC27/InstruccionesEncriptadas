@@ -2,10 +2,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class OpcionesGuardado {
-    GuardarArchivo guardarArchivo = new GuardarArchivo();
-
-    public void opcGuardarArchivo(String[] args) {
-         if (args.length == 2) guardarArchivo.crearArchivo(Atributos.outputFileName);
+    public static void opcGuardarArchivo(String[] args) {
+         if (args.length == 2) GuardarArchivo.crearArchivo(Atributos.outputFileName);
 
          else {
             System.out.println("\nYa se genero la respuesta\n1- Guardar archivo por default\n2- Modificar ruta y nombre\nQue decea: ");
@@ -13,7 +11,7 @@ public class OpcionesGuardado {
 
             try {
                 // por defecto
-                if (opcGuardar == 1) guardarArchivo.crearArchivo("respuesta.txt");
+                if (opcGuardar == 1) GuardarArchivo.crearArchivo("respuesta.txt");
 
                     // eligir ruta y nombre
                 else if (opcGuardar == 2) {
@@ -30,7 +28,7 @@ public class OpcionesGuardado {
 
                     Atributos.file = new File(ruta, nombre);
 
-                    if (Atributos.file.createNewFile()) guardarArchivo.crearArchivo(String.valueOf(Atributos.file));
+                    if (Atributos.file.createNewFile()) GuardarArchivo.crearArchivo(String.valueOf(Atributos.file));
 
                     else System.out.println("No ha podido ser creado el fichero");
                 }
