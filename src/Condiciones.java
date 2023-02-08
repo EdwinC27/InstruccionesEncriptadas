@@ -1,16 +1,17 @@
-import com.sun.source.tree.IfTree;
-
 public class Condiciones {
-    public static void condicionesEsperadas(String[] args) {
-        // condiciones definidas
+    public static void condicionesEsperadas(String[] args) { // condiciones definidas
+        // tamaño esperado de cada mensage
         if ((Atributos.n >= 3 && Atributos.n <= 5000) && (Atributos.m1 >= 2 && Atributos.m1 <= 50) && (Atributos.m2 >= 2 && Atributos.m2 <= 50)) {
+            // Caracteres duplicaos
             if (hasDuplicateChar(Atributos.instruccion1) && hasDuplicateChar(Atributos.instruccion2)) {
+                // Longitud esperado
                 if (Atributos.m1 == Atributos.instruccion1.length() && Atributos.m2 == Atributos.instruccion2.length() && Atributos.n == Atributos.mensaje.length()) {
+                    // Caracteres especiales
                     if(validarCaracteresEspeciales(Atributos.instruccion1) && validarCaracteresEspeciales(Atributos.instruccion2) && validarCaracteresEspeciales(Atributos.mensaje)) {
                         // general el mensage con la instruccion
                         Atributos.resultado1 = validarCaracteres(Atributos.instruccion1, Atributos.mensaje);
                         Atributos.resultado2 = validarCaracteres(Atributos.instruccion2, Atributos.mensaje);
-
+                        // mas de una instruccion en el mismo mensage
                         if(!Atributos.resultado1.equals(Atributos.resultado2)) { // chechar si hay mas de 1 Si
                             OpcionesGuardado.opcGuardarArchivo(args);
                         }

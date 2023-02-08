@@ -13,7 +13,7 @@ public class OpcionesGuardado {
                 // por defecto
                 if (opcGuardar == 1) GuardarArchivo.crearArchivo("respuesta.txt");
 
-                    // eligir ruta y nombre
+                // Establecer ruta y nombre
                 else if (opcGuardar == 2) {
                     Atributos.scanner.nextLine(); // limpiar bufer
 
